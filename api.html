@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajax</title>
+  </head>
+  <body>
+    <button type="button" onclick="getRepository()">GET</button>
+    <div id="show"></div>
+    <script>
+      function getRepository() {
+        var myRequest = new XMLHttpRequest();
+        myRequest.onreadystatechange = function () {
+          if (myRequest.readyState === 4 && myRequest.status === 200) {
+            // console.log(this.responseText);
+            // console.log(JSON.parse(this.responseText));
+            var myObj = JSON.parse(this.responseText),
+              myText = "";
+            for (var i = 0; i < myObj.length; i++) {
+              myText += myObj[i].usernames + "<br>";
+            }
+            document.getElementById("show").innerHTML = myText;
+          }
+        };
+        myRequest.open("GET", "object.json", true);
+
+        myRequest.send();
+      }
+    </script>
+  </body>
+</html>
+<!-- https://api.github.com/users/ElzeroWebSchool/repos -->
